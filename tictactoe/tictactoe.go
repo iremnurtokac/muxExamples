@@ -26,9 +26,19 @@ func main() {
 		fmt.Println(gameState.Field)
 	}
 
-	//fmt.Printf ("%v\n", g[0])
-	//fmt. Println (g[len(g)-1])
-	//fmt.Println (f[0], g[0])
+}
+
+func gameOngoing() bool {
+
+	if !playerWon() {
+		return !draw()
+	}
+	return false
+}
+
+func (gs *GameState) playerPut(field int) {
+
+	gs.Field[field] = gs.CurrentPlayer
 
 }
 
@@ -94,19 +104,5 @@ func draw() bool {
 		return true
 	}
 	return false
-
-}
-
-func gameOngoing() bool {
-
-	if !playerWon() {
-		return !draw()
-	}
-	return false
-}
-
-func (gs *GameState) playerPut(field int) {
-
-	gs.Field[field] = gs.CurrentPlayer
 
 }

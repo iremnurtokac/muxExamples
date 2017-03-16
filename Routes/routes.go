@@ -10,9 +10,10 @@ import (
 func main() {
 	userAges := map[string]string{
 
-		"Alice":  "25",
-		"Bob":    "30",
-		"Claire": "29",
+		"Alice":     "25",
+		"Bob":       "30",
+		"Claire":    "xx",
+		"Tictactoe": "xxx",
 	}
 
 	r := mux.NewRouter()
@@ -21,7 +22,7 @@ func main() {
 		name := vars["name"]
 		age := userAges[name]
 
-		fmt.Fprintf(w, "%s is %s years old!", name, age)
+		fmt.Fprintf(w, "%s", age)
 	}).Methods("GET")
 
 	http.ListenAndServe(":8080", r)
