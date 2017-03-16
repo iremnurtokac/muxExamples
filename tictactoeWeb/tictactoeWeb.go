@@ -16,7 +16,6 @@ var gameState = GameState{[9]string{"", "", "", "", "", "", "", "", ""}, "O"}
 
 func main() {
 
-	//currentState := []string{}
 	i := 0
 	for gameOngoing() {
 
@@ -33,14 +32,24 @@ func main() {
 
 	}
 
-	playMove := map[string]string{
+	playMove := map[string][9]string{
 
-		"Tictactoe": gameState.Field[0],
+		"Tictactoe": gameState.Field,
 	}
+
+	/* winner := map[string]string{
+
+		"Tictactoe": gameState.CurrentPlayer,
+	} */
 
 	/*	playMove := map[string][9]string{
 
 		"Tictactoe": gameState.Field,
+	} */
+
+	/*	playMove := map[string]string{
+
+		"Tictactoe": gameState.Field[4],
 	} */
 
 	r := mux.NewRouter()
@@ -49,7 +58,7 @@ func main() {
 		state := vars["state"]
 		current := playMove[state]
 
-		fmt.Fprintf(w, "%s", current)
+		fmt.Fprintf(w, "Game Result: %s", current)
 	}).Methods("GET")
 
 	http.ListenAndServe(":8080", r)
