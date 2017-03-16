@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//GameState defines the current game state
 type GameState struct {
 	Field         [9]string
 	CurrentPlayer string
@@ -37,21 +38,6 @@ func main() {
 		"Tictactoe": gameState.Field,
 	}
 
-	/* winner := map[string]string{
-
-		"Tictactoe": gameState.CurrentPlayer,
-	} */
-
-	/*	playMove := map[string][9]string{
-
-		"Tictactoe": gameState.Field,
-	} */
-
-	/*	playMove := map[string]string{
-
-		"Tictactoe": gameState.Field[4],
-	} */
-
 	r := mux.NewRouter()
 	r.HandleFunc("/users/{state}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
@@ -64,18 +50,18 @@ func main() {
 	http.ListenAndServe(":8080", r)
 }
 
+func (gs *GameState) playerPut(field int) {
+
+	gs.Field[field] = gs.CurrentPlayer
+
+}
+
 func gameOngoing() bool {
 
 	if !playerWon() {
 		return !draw()
 	}
 	return false
-}
-
-func (gs *GameState) playerPut(field int) {
-
-	gs.Field[field] = gs.CurrentPlayer
-
 }
 
 func compare(tocompare ...string) bool {

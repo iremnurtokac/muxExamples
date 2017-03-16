@@ -28,18 +28,18 @@ func main() {
 
 }
 
+func (gs *GameState) playerPut(field int) {
+
+	gs.Field[field] = gs.CurrentPlayer
+
+}
+
 func gameOngoing() bool {
 
 	if !playerWon() {
 		return !draw()
 	}
 	return false
-}
-
-func (gs *GameState) playerPut(field int) {
-
-	gs.Field[field] = gs.CurrentPlayer
-
 }
 
 func compare(tocompare ...string) bool {
