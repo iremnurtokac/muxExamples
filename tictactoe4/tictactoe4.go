@@ -1,17 +1,34 @@
 package main
 
 import "fmt"
+// GameData contains game information 
+type GameData struct {
+	Column int 
+	Row int 
+	Move string
+}  
+
+func (gd*GameData) play(){
+fmt.Printf("%s %s %s\n%s %s %s\n%s %s %s\n", [0][0], gameField[0][1], gameField[0][2],
+		[1][0], gameField[1][1], gameField[1][2],
+		gameField[2][0], gameField[2][1], gameField[2][2])	
+}
+
+
+/*
+var gameField1 = [][]string{
+	[]string{"_", "_", "_"},
+	[]string{"_", "_", "_"},
+	[]string{"_", "_", "_"},
+} */
 
 func main() {
 
-	gameField := [][]string{
-		[]string{"_", "_", "_"},
-		[]string{"_", "_", "_"},
-		[]string{"_", "_", "_"},
-	}
+}
+func (g *GameData) play() string {
 
 	fmt.Printf("%s %s %s\n%s %s %s\n%s %s %s\n", gameField[0][0], gameField[0][1], gameField[0][2],
-		gameField[1][0], gameField[1][1], gameField[1][2],
+		[1][0], gameField[1][1], gameField[1][2],
 		gameField[2][0], gameField[2][1], gameField[2][2])
 
 	if (gameField[0][0] == gameField[0][1] && gameField[0][0] == gameField[0][2]) ||

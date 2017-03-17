@@ -24,14 +24,7 @@ func main() {
 	board[2][1] = "O"
 	board[2][2] = "X"
 
-	/*	for i := 0; i < len(board); i++ {
-		fmt.Printf("%s\n", strings.Join(board[i], " "))
-	}  */
-}
-
-func playerput() {
 	for i := 0; i < len(board); i++ {
 		fmt.Printf("%s\n", strings.Join(board[i], " "))
 	}
-
 }

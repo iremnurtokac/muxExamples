@@ -14,7 +14,6 @@ type GameState struct {
 }
 
 func main() {
-
 	
 	board := [][]string{
 		[]string{"_", "_", "_"},
