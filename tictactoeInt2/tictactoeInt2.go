@@ -7,36 +7,17 @@ import (
 	"github.com/gorilla/mux"
 )
 
-//GameState defines the current game state
-type GameState struct {
-	Field         [9]string
-	CurrentPlayer string
+// GameState contains moves -X or O and postion of moves
+
+gameState := [9] GameState{"_","_","_","_","_","_","_","_","_",}
+
+func (gs *GameState) play(m string, p int) []string {
+currentPlay:= 
+
+return 
 }
 
 func main() {
-
-	
-	board := [][]string{
-		[]string{"_", "_", "_"},
-		[]string{"_", "_", "_"},
-		[]string{"_", "_", "_"},
-	}
-
-	/*	 i := 0
-	for gameOngoing() {
-
-		if gameState.CurrentPlayer == "X" {
-			gameState.CurrentPlayer = "O"
-		} else {
-			gameState.CurrentPlayer = "X"
-		}
-
-		gameState.playerPut(i)
-
-		i++
-		fmt.Println(gameState.Field)
-
-	} */
 
 	playMove := map[string][9]string{
 
@@ -53,20 +34,6 @@ func main() {
 	}).Methods("GET")
 
 	http.ListenAndServe(":8080", r)
-}
-
-func (gs *GameState) playerPut(field int) {
-
-	gs.Field[field] = gs.CurrentPlayer
-
-}
-
-func gameOngoing() bool {
-
-	if !playerWon() {
-		return !draw()
-	}
-	return false
 }
 
 func compare(tocompare ...string) bool {
