@@ -8,7 +8,12 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="my.js"></script>
+    <style>
+        table{
+            align-content: center;
+        }
+        </style>
 
 </header>
 
@@ -22,21 +27,7 @@
 
             <div class="panel-body">Hello World!
                 <script>
-                    $(document).ready(function () {
-                        $("#button1").click(function (event) {
-                            $.ajax({
-                                type: 'GET',
-                                crossOrigin: true,
-                                url: 'http://localhost:8080/users/Tictactoe',
-                                success: function (result) {
-                                    $("#target").html(result);
-                                },
-                                error: function () {
 
-                                }
-                            });
-                        });
-                    });
                 </script>
                 <div id="button1" class="btn btn-primary">
                     Click Me!
@@ -45,7 +36,7 @@
 
                 </div>
 
-                
+
 
             </div>
         </div>

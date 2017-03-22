@@ -35,9 +35,6 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/users/{state}", func(w http.ResponseWriter, r *http.Request) {
-		//vars := mux.Vars(r)
-		//state := vars["state"]
-		//current := playMove[state]
 		/*
 
 		   GET http://localhost:8080/users/Tictactoe HTTP/1.1
@@ -46,6 +43,7 @@ func main() {
 
 		if currentAsJSON, err := json.Marshal(gameState); err == nil {
 			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set("Access-Control-Allow-Origin", "*")
 			w.WriteHeader(http.StatusOK)
 			w.Write(currentAsJSON)
 			//fmt.Fprintf(w, "%v", string(currentAsJSON))
