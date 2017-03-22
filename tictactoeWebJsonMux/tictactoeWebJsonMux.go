@@ -33,36 +33,6 @@ func main() {
 
 	}
 
-	// playMove := map[string][9]string{
-
-	// 	"Tictactoe": gameState.Field,
-	// }
-
-	/* winner := map[string]string{
-
-		"Tictactoe": gameState.CurrentPlayer,
-	} */
-
-	/*	playMove := map[string][9]string{
-
-		"Tictactoe": gameState.Field,
-	} */
-
-	/*	playMove := map[string]string{
-
-		"Tictactoe": gameState.Field[4],
-	} */
-
-	/*
-
-		result := GameState{
-				Field:         gameState.Field,
-				CurrentPlayer: gameState.CurrentPlayer,
-			}
-		json.NewEncoder(w).Encode(result)
-
-	*/
-
 	r := mux.NewRouter()
 	r.HandleFunc("/users/{state}", func(w http.ResponseWriter, r *http.Request) {
 		//vars := mux.Vars(r)
