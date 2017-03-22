@@ -8,14 +8,14 @@ $(document).ready(function () {
                 $("#target").html('<table class="table table-bordered"><tr>' +
                 "<td>"+ result.field[0][0] + "</td>" +
                 "<td>"+ result.field[0][1] + "</td>" +
-                "<td>"+ result.field[0][2]+ "</td><tr>" +
+                "<td>"+ result.field[0][2] + "</td><tr>" +
                 "<td>"+ result.field[1][0] + "</td>" +
                 "<td>"+ result.field[1][1] + "</td>" +
                 "<td>"+ result.field[1][2] + "</td><tr>" +
                 "<td>"+ result.field[2][0] + "</td>" +
                 "<td>"+ result.field[2][1] + "</td>" +
                 "<td>"+ result.field[2][2] + "</td>"
-                //+"</tr> </table><div>"+ result.player +"</div>" 
+                +"</tr> </table><div>"+ result.winner +"</div>" 
                  );
             },
             error: function () {

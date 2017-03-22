@@ -9,14 +9,15 @@ import (
 )
 
 type GameState struct {
-	Field [][]string `json:"field"`
+	Field  [][]string `json:"field"`
+	Winner string     `json:"winner"`
 }
 
 var gameField = GameState{[][]string{
-	[]string{"X", "0", "_"},
+	[]string{"X", "X", "X"},
+	[]string{"O", "O", "X"},
 	[]string{"_", "_", "_"},
-	[]string{"_", "_", "_"},
-}}
+}, ""}
 
 func main() {
 
@@ -28,23 +29,27 @@ func main() {
 		(gameField.Field[0][0] == gameField.Field[1][0] && gameField.Field[0][0] == gameField.Field[2][0]) {
 		if gameField.Field[0][0] == "X" || gameField.Field[0][0] == "O" {
 			fmt.Printf("+++Game Over+++ \nThe winner is Player %s", gameField.Field[0][0])
+			gameField.Winner = "Winner is  " + gameField.Field[0][0]
 		}
 
 	} else if (gameField.Field[1][0] == gameField.Field[1][1] && gameField.Field[1][0] == gameField.Field[1][2]) ||
 		(gameField.Field[0][1] == gameField.Field[1][1] && gameField.Field[0][1] == gameField.Field[2][1]) {
 		if gameField.Field[1][1] == "X" || gameField.Field[1][1] == "O" {
 			fmt.Printf("+++Game Over+++ \nThe winner is Player %s", gameField.Field[1][1])
+			gameField.Winner = "Winner is  " + gameField.Field[1][1]
 		}
 	} else if (gameField.Field[2][0] == gameField.Field[2][1] && gameField.Field[2][0] == gameField.Field[2][2]) ||
 		(gameField.Field[0][0] == gameField.Field[1][1] && gameField.Field[0][0] == gameField.Field[2][2]) {
 		if gameField.Field[2][2] == "X" || gameField.Field[2][2] == "O" {
 			fmt.Printf("+++Game Over+++ \nThe winner is Player %s", gameField.Field[2][2])
+			gameField.Winner = "Winner is  " + gameField.Field[2][2]
 		}
 
 	} else if (gameField.Field[0][2] == gameField.Field[1][2] && gameField.Field[0][2] == gameField.Field[2][2]) ||
 		(gameField.Field[0][2] == gameField.Field[1][1] && gameField.Field[0][2] == gameField.Field[2][0]) {
 		if gameField.Field[0][2] == "X" || gameField.Field[0][2] == "O" {
 			fmt.Printf("+++Game Over+++ \nThe winner is Player %s", gameField.Field[2][0])
+			gameField.Winner = "Winner is  " + gameField.Field[2][0]
 		}
 
 	}
