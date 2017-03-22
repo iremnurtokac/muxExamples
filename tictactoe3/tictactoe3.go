@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 
 	gameField := [][]string{
-		[]string{"_", "_", "_"},
+		[]string{"X", "_", "_"},
 		[]string{"_", "_", "_"},
 		[]string{"_", "_", "_"},
 	}

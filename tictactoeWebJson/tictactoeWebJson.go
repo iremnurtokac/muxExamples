@@ -43,7 +43,7 @@ func main() {
 			CurrentPlayer: gameState.CurrentPlayer,
 		}
 
-		json.NewEncoder(w).Encode(&result)
+		json.NewEncoder(w).Encode(result)
 	})
 
 	http.ListenAndServe(":8080", nil)
