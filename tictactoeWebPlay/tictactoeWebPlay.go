@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// GameState defines the current state of the game
 type GameState struct {
 	Field  [][]string `json:"field"`
 	Winner string     `json:"winner"`
@@ -24,6 +25,8 @@ func main() {
 	fmt.Printf("%s %s %s\n%s %s %s\n%s %s %s\n", gameField.Field[0][0], gameField.Field[0][1], gameField.Field[0][2],
 		gameField.Field[1][0], gameField.Field[1][1], gameField.Field[1][2],
 		gameField.Field[2][0], gameField.Field[2][1], gameField.Field[2][2])
+
+	// ---- Winning Conditions ----
 
 	if (gameField.Field[0][0] == gameField.Field[0][1] && gameField.Field[0][0] == gameField.Field[0][2]) ||
 		(gameField.Field[0][0] == gameField.Field[1][0] && gameField.Field[0][0] == gameField.Field[2][0]) {
@@ -75,5 +78,8 @@ func main() {
 		}
 
 	}).Methods("GET")
+
+
+	
 	http.ListenAndServe(":8080", r)
 }

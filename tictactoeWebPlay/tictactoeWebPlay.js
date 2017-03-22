@@ -6,15 +6,15 @@ $(document).ready(function () {
             url: 'http://localhost:8080/users/Tictactoe',
             success: function (result) {
                 $("#target").html('<table class="table table-bordered"><tr>' +
-                "<td>"+ result.field[0][0] + "</td>" +
-                "<td>"+ result.field[0][1] + "</td>" +
-                "<td>"+ result.field[0][2] + "</td><tr>" +
-                "<td>"+ result.field[1][0] + "</td>" +
-                "<td>"+ result.field[1][1] + "</td>" +
-                "<td>"+ result.field[1][2] + "</td><tr>" +
-                "<td>"+ result.field[2][0] + "</td>" +
-                "<td>"+ result.field[2][1] + "</td>" +
-                "<td>"+ result.field[2][2] + "</td>"
+                "<td>"+ result.field[0] + "</td>" +
+                "<td>"+ result.field[1] + "</td>" +
+                "<td>"+ result.field[2] + "</td><tr>" +
+                "<td>"+ result.field[3] + "</td>" +
+                "<td>"+ result.field[4] + "</td>" +
+                "<td>"+ result.field[5] + "</td><tr>" +
+                "<td>"+ result.field[6] + "</td>" +
+                "<td>"+ result.field[7] + "</td>" +
+                "<td>"+ result.field[8] + "</td>"
                 +"</tr> </table><div>"+ result.winner +"</div>" 
                  );
             },
