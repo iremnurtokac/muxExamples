@@ -20,7 +20,7 @@ type GameState struct {
 	Message       string    `json:"message"`
 }
 
-var gameState = GameState{[9]string{"", "", "", "", "", "", "", "", ""}, "X", "Start the Game!"}
+var gameState = GameState{[9]string{"", "", "", "", "", "", "", "", ""}, "O", "Start the Game!"}
 
 func main() {
 
@@ -35,15 +35,17 @@ func main() {
 		if gsname, ok := vars["game"]; ok {
 
 			Games := GetGames("./games.json")
+
 			if Games.Games == nil {
 				Games = &GamesType{map[string]GameState{}}
 			}
 			gs, ok := Games.Games[gsname]
 			if !ok {
-				gs = GameState{[9]string{}, "X", "Start the Game!"}
+				gs = GameState{[9]string{}, "O", "Start the Game!"}
 
 				Games.Games[gsname] = gs
 				WriteGames("./games.json", Games)
+
 			}
 			if currentAsJSON, err := json.Marshal(gs); err == nil {
 				w.Header().Set("Content-Type", "application/json")
@@ -73,16 +75,18 @@ func main() {
 		*/
 
 		vars := mux.Vars(r)
-		if gsname, ok := vars["game"]; ok {
+		if gsname, ok := vars["games"]; ok {
 			Games := GetGames("./games.json")
+
 			if Games.Games == nil {
 				Games = &GamesType{map[string]GameState{}}
 			}
 			gs, ok := Games.Games[gsname]
 			if !ok {
-				gs = GameState{[9]string{}, "X", "Start the Game!"}
+				gs = GameState{[9]string{}, "O", "Start the Game!"}
 				Games.Games[gsname] = gs
 				WriteGames("./games.json", Games)
+
 			}
 			if gs.gameOngoing() {
 
