@@ -20,7 +20,7 @@ type GameState struct {
 	Message       string    `json:"message"`
 }
 
-var gameState = GameState{[9]string{"", "", "", "", "", "", "", "", ""}, "O", "Start the Game!"}
+//var gameState = GameState{[9]string{"", "", "", "", "", "", "", "", ""}, "O", "Start the Game!"}
 
 func main() {
 
@@ -44,9 +44,10 @@ func main() {
 				gs = GameState{[9]string{}, "O", "Start the Game!"}
 
 				Games.Games[gsname] = gs
-				WriteGames("./games.json", Games)
 
 			}
+			Games.Games[gsname] = gs
+			WriteGames("./games.json", Games)
 			if currentAsJSON, err := json.Marshal(gs); err == nil {
 				w.Header().Set("Content-Type", "application/json")
 				w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -75,7 +76,7 @@ func main() {
 		*/
 
 		vars := mux.Vars(r)
-		if gsname, ok := vars["games"]; ok {
+		if gsname, ok := vars["game"]; ok {
 			Games := GetGames("./games.json")
 
 			if Games.Games == nil {
@@ -85,9 +86,9 @@ func main() {
 			if !ok {
 				gs = GameState{[9]string{}, "O", "Start the Game!"}
 				Games.Games[gsname] = gs
-				WriteGames("./games.json", Games)
 
 			}
+
 			if gs.gameOngoing() {
 
 				if fieldstring, ok := vars["field"]; ok {
@@ -105,7 +106,8 @@ func main() {
 			}
 
 			gs.gameOngoing()
-
+			Games.Games[gsname] = gs
+			WriteGames("./games.json", Games)
 			if currentAsJSON, err := json.Marshal(gs); err == nil {
 				w.Header().Set("Content-Type", "application/json")
 				w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -123,7 +125,51 @@ func main() {
 		}
 
 	}).Methods("POST")
+	//
+
+	r.HandleFunc("/users/{game}/reset", func(w http.ResponseWriter, r *http.Request) {
+		/*
+
+		   DELETE http://localhost:8080/users/reset HTTP/1.1
+
+		*/
+		vars := mux.Vars(r)
+		if gsname, ok := vars["game"]; ok {
+
+			Games := GetGames("./games.json")
+
+			if Games.Games != nil {
+				Games = &GamesType{map[string]GameState{}}
+			}
+			gs, ok := Games.Games[gsname]
+			if !ok {
+				gs = GameState{[9]string{}, "O", "Start the Game!"}
+
+				Games.Games[gsname] = gs
+
+			}
+			Games.Games[gsname] = gs
+			WriteGames("./games.json", Games)
+			if currentAsJSON, err := json.Marshal(gs); err == nil {
+				w.Header().Set("Content-Type", "application/json")
+				w.Header().Set("Access-Control-Allow-Origin", "*")
+				w.WriteHeader(http.StatusOK)
+				w.Write(currentAsJSON)
+				//fmt.Fprintf(w, "%v", string(currentAsJSON))
+
+			} else {
+				w.WriteHeader(http.StatusInternalServerError)
+				fmt.Fprintf(w, "Error while creating JSON : %v", err)
+			}
+		} else {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Fprint(w, "Please provide Game in URL")
+		}
+
+	}).Methods("POST")
+
 	http.ListenAndServe(":8080", r)
+
 }
 
 func (gs *GameState) gameOngoing() bool {
@@ -170,15 +216,15 @@ func (gs *GameState) playerWon() bool {
 
 	for i := 0; i < 3; i++ {
 
-		res = compare(gs.Field[i*3], gs.Field[i*3+1], gs.Field[i*3+2])
+		res = res || compare(gs.Field[i*3], gs.Field[i*3+1], gs.Field[i*3+2])
 
-		res = compare(gs.Field[i], gs.Field[i+3], gs.Field[i+6])
+		res = res || compare(gs.Field[i], gs.Field[i+3], gs.Field[i+6])
 
 	}
 
-	res = compare(gs.Field[0], gs.Field[4], gs.Field[8])
+	res = res || compare(gs.Field[0], gs.Field[4], gs.Field[8])
 
-	res = compare(gs.Field[2], gs.Field[4], gs.Field[6])
+	res = res || compare(gs.Field[2], gs.Field[4], gs.Field[6])
 
 	if res {
 		gs.Message = fmt.Sprintf("Player %s has won !", gs.CurrentPlayer)
@@ -219,7 +265,7 @@ func GetGames(path string) *GamesType {
 
 func WriteGames(path string, Games *GamesType) {
 
-	d1, _ := json.Marshal(Games)
-	ioutil.WriteFile(path, d1, 0644)
+	d1, _ := json.Marshal(*Games)
+	ioutil.WriteFile(path, d1, 0755)
 
 }
