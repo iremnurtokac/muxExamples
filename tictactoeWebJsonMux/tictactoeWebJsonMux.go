@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -138,16 +140,8 @@ func main() {
 
 			Games := GetGames("./games.json")
 
-			if Games.Games != nil {
-				Games = &GamesType{map[string]GameState{}}
-			}
-			gs, ok := Games.Games[gsname]
-			if !ok {
-				gs = GameState{[9]string{}, "O", "Start the Game!"}
+			gs := GameState{[9]string{}, "O", "Start the Game!"}
 
-				Games.Games[gsname] = gs
-
-			}
 			Games.Games[gsname] = gs
 			WriteGames("./games.json", Games)
 			if currentAsJSON, err := json.Marshal(gs); err == nil {
@@ -181,8 +175,19 @@ func (gs *GameState) gameOngoing() bool {
 }
 
 func (gs *GameState) playerPut(field int) {
+	if len(gs.Field[field]) < 1 {
+		gs.Field[field] = gs.CurrentPlayer
+		//rand.Seed(42)
+		rand.Seed(time.Now().Unix())
+		motMes := []string{"Good move", "Nice play", "Keep on tictactoing"}
 
-	gs.Field[field] = gs.CurrentPlayer
+		gs.Message = fmt.Sprintf(motMes[rand.Intn(len(motMes))]+" Player %s", gs.CurrentPlayer)
+
+	} else {
+		gs.Message = fmt.Sprintf(" Oops! Move %s Is Not Allowed ", gs.CurrentPlayer)
+		gs.CurrentPlayer = gs.Field[field]
+
+	}
 
 }
 
